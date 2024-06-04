@@ -1,6 +1,4 @@
-import { Router, Routes } from '@angular/router';
-import { inject } from '@angular/core';
-import { guardDemo } from './shared/guards/guard-demo';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
@@ -9,9 +7,8 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('./pages/fighter-list/fighter-list.component'),
-        canActivate: [guardDemo],
+        loadComponent: () => import('./pages/fighter-list/fighter-list.component'),
+        // canActivate: [guardDemo],
       },
       {
         path: 'arena',
