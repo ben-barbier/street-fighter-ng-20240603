@@ -1,0 +1,23 @@
+<mat-card class="card">
+  <mat-card-header class="card-header">
+    <!--    <img mat-card-avatar class="header-image" [src]="pictureUrl" />-->
+    <mat-card-title class="character-name">{{ fighter.name }}</mat-card-title>
+    <mat-card-subtitle>{{ fighter.country }}</mat-card-subtitle>
+  </mat-card-header>
+  <!--  <img mat-card-image [src]="pictureUrl" alt="Photo of a Shiba Inu" />-->
+  <mat-card-content>
+    <div>Stamina: {{ fighter.stamina }}</div>
+    <div>Stun: {{ fighter.stun }}</div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button type="button" mat-mini-fab color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <a mat-mini-fab color="primary">
+      <mat-icon>visibility</mat-icon>
+    </a>
+    <button type="button" mat-mini-fab (click)="addFighterToArena()">
+      <mat-icon>sports_mma</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

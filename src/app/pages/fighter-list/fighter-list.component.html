@@ -1,1 +1,3 @@
-<pre>{{ characters | json }}</pre>
+<div class="fighters">
+  <app-fighter-card *ngFor="let character of characters" [fighter]="character"></app-fighter-card>
+</div>

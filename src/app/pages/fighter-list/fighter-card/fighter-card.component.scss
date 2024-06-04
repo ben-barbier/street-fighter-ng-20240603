@@ -1,0 +1,21 @@
+.card {
+  min-width: 200px;
+
+  .card-header {
+    height: 84px;
+  }
+
+  .character-name {
+    max-width: min-content;
+  }
+
+  .mat-mdc-card-actions {
+    display: flex;
+    justify-content: space-evenly;
+
+    .mat-mini-fab {
+      margin-right: 8px;
+    }
+  }
+
+}
