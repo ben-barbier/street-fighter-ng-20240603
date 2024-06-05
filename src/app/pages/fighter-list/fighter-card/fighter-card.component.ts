@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { MatMiniFabAnchor, MatMiniFabButton } from '@angular/material/button';
 import {
   MatCard,
@@ -12,7 +12,7 @@ import {
 } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { CharacterWithCountry } from '../../../shared/services/characters.service';
+import { Character } from '../../../shared/services/characters.service';
 import { ArenaService } from '../../../shared/store/arena.service';
 
 @Component({
@@ -36,11 +36,13 @@ import { ArenaService } from '../../../shared/store/arena.service';
   styleUrl: './fighter-card.component.scss',
 })
 export class FighterCardComponent {
-  @Input({ required: true }) fighter!: CharacterWithCountry;
+  // @Input({ required: true }) fighter!: CharacterWithCountry;
+  fighter = input.required<Character>();
+  pictureUrl = computed(() => `http://localhost:4200/assets/characters/${this.fighter().id}_thumbnail.png`);
 
   #arenaService = inject(ArenaService);
 
   addFighterToArena() {
-    this.#arenaService.addFighter(this.fighter);
+    this.#arenaService.addFighter(this.fighter());
   }
 }

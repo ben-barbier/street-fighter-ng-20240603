@@ -1,6 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, computed, effect, inject, signal } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { filter, switchMap } from 'rxjs';
+import { Character } from '../../shared/services/characters.service';
+import { CountriesService } from '../../shared/services/countries.service';
 import { ArenaService } from '../../shared/store/arena.service';
 
 @Component({
@@ -9,18 +12,35 @@ import { ArenaService } from '../../shared/store/arena.service';
   imports: [AsyncPipe],
   templateUrl: './arena.component.html',
   styleUrl: './arena.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ArenaComponent {
   #arenaService = inject(ArenaService);
+  #countryService = inject(CountriesService);
 
-  fighter1$ = this.#arenaService.arena$.pipe(map((a) => a[0]));
-  fighter2$ = this.#arenaService.arena$.pipe(map((a) => a[1]));
+  fighter1 = computed((): Character | undefined => this.#arenaService.arena()[0]);
+  fighter2 = computed((): Character | undefined => this.#arenaService.arena()[1]);
 
-  count = signal(0);
-  double = computed(() => this.count() * 2);
-  logDouble = effect(() => console.log(this.double()));
+  // score = SUM DES STAMINA
+  score = computed(() => {
+    const arena = this.#arenaService.arena();
+    return (arena[0]?.stamina ?? 0) + (arena[1]?.stamina ?? 0);
+  });
 
-  increment() {
-    this.count.update((v) => v + 1);
-  }
+  // Afficher les pays des characters suite à un appel d'API sur /country/:name
+  fighter1Country = toSignal(
+    toObservable(this.fighter1).pipe(
+      filter((f1): f1 is Character => !!f1),
+      switchMap((f1: Character) => this.#countryService.getCountryByName(f1.country)),
+    ),
+  );
+
+  // e = effect(() => {
+  //   this.#countryService.getCountryByName(this.fighter1().country).subscribe((c) => {
+  //     this.fighter1Country = c;
+  //   });
+  // });
+
+  // Au départ => fighter1.country (France)
+  // A l'arrivée => L'objet Country de la France (avec le flag)
 }

@@ -1,13 +1,13 @@
 <mat-card class="card">
   <mat-card-header class="card-header">
-    <!--    <img mat-card-avatar class="header-image" [src]="pictureUrl" />-->
-    <mat-card-title class="character-name">{{ fighter.name }}</mat-card-title>
-    <mat-card-subtitle>{{ fighter.country }}</mat-card-subtitle>
+    <img mat-card-avatar class="header-image" [src]="pictureUrl()" alt="" />
+    <mat-card-title class="character-name">{{ fighter().name }}</mat-card-title>
+    <mat-card-subtitle>{{ fighter().country }}</mat-card-subtitle>
   </mat-card-header>
-  <!--  <img mat-card-image [src]="pictureUrl" alt="Photo of a Shiba Inu" />-->
+  <img mat-card-image [src]="pictureUrl()" alt="Photo of a Shiba Inu" />
   <mat-card-content>
-    <div>Stamina: {{ fighter.stamina }}</div>
-    <div>Stun: {{ fighter.stun }}</div>
+    <div>Stamina: {{ fighter().stamina }}</div>
+    <div>Stun: {{ fighter().stun }}</div>
   </mat-card-content>
   <mat-card-actions>
     <button type="button" mat-mini-fab color="warn">

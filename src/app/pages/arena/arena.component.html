@@ -1,7 +1,7 @@
 <h1>Arena</h1>
 
-{{ (fighter1$ | async)?.name }} vs {{ (fighter2$ | async)?.name }}
+{{ fighter1()?.name }} vs {{ fighter2()?.name }}
 
-<div>Count: {{ count() }}</div>
-<div>Count: {{ double() }}</div>
-<button type="button" (click)="increment()">Increment</button>
+<div>SCORE: {{ score() }}</div>
+
+{{ fighter1Country()?.name }}
