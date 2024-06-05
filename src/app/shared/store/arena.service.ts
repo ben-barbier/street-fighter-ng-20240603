@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Character } from '../services/characters.service';
+import { CharacterDTO } from '../models/characters.dto';
 
 @Injectable({ providedIn: 'root' })
 export class ArenaService {
@@ -19,11 +19,11 @@ export class ArenaService {
   // }
 
   // V2
-  #arena = signal<Character[]>([]);
+  #arena = signal<CharacterDTO[]>([]);
 
   arena = this.#arena.asReadonly();
 
-  addFighter(fighter: Character): void {
+  addFighter(fighter: CharacterDTO): void {
     this.#arena.update((currentArena) => {
       if (!currentArena[0]) {
         return [fighter, currentArena[1]];

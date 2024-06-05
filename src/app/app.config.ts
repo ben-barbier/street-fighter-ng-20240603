@@ -4,7 +4,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
+import { CharactersEffects } from './store/effects/characters.effects';
+import { metaReducers, reducers } from './store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,7 +15,18 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(),
-    provideStore(),
-    provideEffects(),
+    provideStore(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictActionSerializability: true,
+        strictActionTypeUniqueness: true,
+        strictActionImmutability: true,
+        strictActionWithinNgZone: true,
+        strictStateSerializability: true,
+        strictStateImmutability: true,
+      },
+    }),
+    provideEffects([CharactersEffects]),
+    provideStoreDevtools({ maxAge: 10 }),
   ],
 };

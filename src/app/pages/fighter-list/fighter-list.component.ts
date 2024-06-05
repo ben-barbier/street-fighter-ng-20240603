@@ -1,26 +1,23 @@
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Character, CharactersService } from '../../shared/services/characters.service';
+import { CharactersDispatchers } from '../../store/dispatchers/characters.dispatchers';
+import { CharactersSelector } from '../../store/selectors/characters.selectors';
 import { FighterCardComponent } from './fighter-card/fighter-card.component';
 
 @Component({
   selector: 'app-fighter-list',
   standalone: true,
-  imports: [JsonPipe, FighterCardComponent],
+  imports: [FighterCardComponent, AsyncPipe],
   templateUrl: './fighter-list.component.html',
   styleUrl: './fighter-list.component.scss',
 })
 export default class FighterListComponent implements OnInit {
-  characters: Character[] = [];
-  #charactersService = inject(CharactersService);
+  #selectors = inject(CharactersSelector);
+  #dispatchers = inject(CharactersDispatchers);
+
+  characters$ = this.#selectors.characters$;
 
   ngOnInit(): void {
-    this.#charactersService
-      .getCharactersWithCountries2()
-      .pipe(takeUntilDestroyed())
-      .subscribe((characters) => {
-        this.characters = characters;
-      });
+    this.#dispatchers.getAll();
   }
 }

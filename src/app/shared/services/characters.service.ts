@@ -17,6 +17,10 @@ export class CharactersService {
   #http = inject(HttpClient);
   #countriesService = inject(CountriesService);
 
+  deleteCharacter(character: CharacterDTO): Observable<void> {
+    return this.#http.delete<void>(`http://localhost:3000/characters/${character.id}`);
+  }
+
   // Retourne les characters avec leurs noms en majuscule
   getCharacters(): Observable<CharacterDTO[]> {
     return this.#http.get<CharacterDTO[]>('http://localhost:3000/characters').pipe(

@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { filter, switchMap } from 'rxjs';
+import { CharacterDTO } from '../../shared/models/characters.dto';
 import { Character } from '../../shared/services/characters.service';
 import { CountriesService } from '../../shared/services/countries.service';
 import { ArenaService } from '../../shared/store/arena.service';
@@ -18,8 +19,8 @@ export default class ArenaComponent {
   #arenaService = inject(ArenaService);
   #countryService = inject(CountriesService);
 
-  fighter1 = computed((): Character | undefined => this.#arenaService.arena()[0]);
-  fighter2 = computed((): Character | undefined => this.#arenaService.arena()[1]);
+  fighter1 = computed((): CharacterDTO | undefined => this.#arenaService.arena()[0]);
+  fighter2 = computed((): CharacterDTO | undefined => this.#arenaService.arena()[1]);
 
   // score = SUM DES STAMINA
   score = computed(() => {

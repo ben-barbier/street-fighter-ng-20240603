@@ -10,7 +10,7 @@
     <div>Stun: {{ fighter().stun }}</div>
   </mat-card-content>
   <mat-card-actions>
-    <button type="button" mat-mini-fab color="warn">
+    <button type="button" mat-mini-fab color="warn" (click)="deleteFighter()">
       <mat-icon>delete</mat-icon>
     </button>
     <a mat-mini-fab color="primary">

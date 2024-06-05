@@ -1,5 +1,5 @@
 <div class="fighters">
-  @for (character of characters; track character.id) {
+  @for (character of characters$ | async; track character.id) {
     <app-fighter-card [fighter]="character"></app-fighter-card>
   }
 </div>
