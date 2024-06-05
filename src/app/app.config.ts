@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
+import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { routes } from './app.routes';
 
@@ -12,5 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(),
     provideStore(),
+    provideEffects(),
   ],
 };
