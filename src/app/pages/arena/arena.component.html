@@ -1,7 +1,5 @@
 <h1>Arena</h1>
 
-{{ fighter1()?.name }} vs {{ fighter2()?.name }}
+{{ (fighter1$ | async)?.name }} vs {{ (fighter2$ | async)?.name }}
 
-<div>SCORE: {{ score() }}</div>
-
-{{ fighter1Country()?.name }}
+<button (click)="clearArena()">Clear</button>
